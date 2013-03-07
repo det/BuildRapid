@@ -32,3 +32,37 @@ example:
 
 
 streamer is used to "stream" the file to http-clients
+
+
+# setup
+
+to setup a mirror, you need to create a cron job which runs svn sync. first create an empty svn directory:
+
+	svnadmin create svn/spring-features
+
+##create svn hooks
+
+vi svn/spring-features/hooks/post-commit
+	#!/bin/sh
+	REPO="$1"
+	REVISION="$2"
+	ROOT=/home/packages
+	$ROOT/build_ca/build-ca "file://$REPO" trunk/mods trunk/spring-features.sdd/modinfo.lua $ROOT/packages $REVISION spring-features
+	$ROOT/bin/log.py $REPO $REVISION <channel1> <channel2>
+	exit 0
+
+vi svn/spring-features/hooks/pre-revprop-change
+	#!/bin/sh
+	exit 0
+
+initialize for syncing:
+
+	svnsync init file:///home/packages/svn/spring-features/  http://spring-features.googlecode.com/svn/trunk/
+
+
+and now do the sync:
+
+	svnsync sync file:///home/packages/svn/spring-features
+
+now add the command to a cron-job.
+
