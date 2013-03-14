@@ -24,7 +24,19 @@ make
 
 for automatic usage, setup svnsync to mirror a svn repo with a cronjob.
 
-./build-ca <svn url>" <path to read get logs from> <modinfo lua or tdf> <path to the file store> <revision> <rapid tag>
+./build-ca <svn url>" <svnpath> <modinfopath> <packagespath> <revision> <rapidprefix>
+
+svnpath:
+	relative path in svn to watch for changes and log, for example: trunk/mods
+	if a change is made in this path (and subpaths) a new package is created
+modinfopath:
+	relative path in svn to modinfo.lua, for example: trunk/mods/zk/modinfo.lua
+packagespath:
+	absolute path to the the file store, for example /home/packages/packages
+revision:
+	svn revision, usally $REVISION (as its run from svn hook)
+rapidprefix:
+	rapid prefix to use for the package, for example: zk
 
 example:
 
