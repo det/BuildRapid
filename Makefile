@@ -24,27 +24,27 @@ all: build-ca add-archive zip-pool streamer
 
 build-ca: ml_svn.o ml_md5.o ml_crc32.o ml_lua.o 7zCrc.o $(BUILD_CA_ML_SOURCES)
 	ocamlfind ocamlopt -o build-ca \
-		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)" \
 		-linkpkg -package "extlib,zip,xml-light,pcre" \
-		ml_svn.o ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(BUILD_CA_ML_SOURCES)
+		ml_svn.o ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(BUILD_CA_ML_SOURCES) \
+		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)"
 
 add-archive:ml_md5.o ml_crc32.o ml_lua.o 7zCrc.o $(ADD_ARCHIVE_ML_SOURCES)
 	ocamlfind ocamlopt -o add-archive \
-		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)" \
 		-linkpkg -package "extlib,zip,pcre" \
-		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(ADD_ARCHIVE_ML_SOURCES)
+		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(ADD_ARCHIVE_ML_SOURCES) \
+		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)"
 
 zip-pool: ml_md5.o ml_crc32.o 7zCrc.o $(ZIP_POOL_ML_SOURCES)
 	ocamlfind ocamlopt -o zip-pool \
-		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)" \
 		-linkpkg -package "extlib,zip,pcre" \
-		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(ZIP_POOL_ML_SOURCES)
+		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(ZIP_POOL_ML_SOURCES) \
+		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)"
 
 streamer: ml_md5.o ml_crc32.o 7zCrc.o $(STREAMER_ML_SOURCES)
 	ocamlfind ocamlopt -o streamer \
-		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)" \
 		-linkpkg -package "extlib,zip,pcre" \
-		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(STREAMER_ML_SOURCES)
+		ml_md5.o 7zCrc.o ml_crc32.o ml_lua.o $(STREAMER_ML_SOURCES) \
+		-cclib "$(APR_LIBS) $(SVN_LIBS) $(LUA_LIBS)"
 
 ml_svn.o: ml_svn.c
 	ocamlopt -ccopt "-Wall -O2 $(APR_CFLAGS)" -o ml_svn.o -c ml_svn.c
