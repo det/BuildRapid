@@ -5,6 +5,9 @@ files in the Spring RTS universe.
 
 See http://springrts.com/wiki/Rapid for more info.
 
+
+# blah
+
 # compile
 
 ## prequesites
